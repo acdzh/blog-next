@@ -1,0 +1,43 @@
+.fluent-button {
+  @apply font-sans;
+  align-items: center;
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  text-decoration-line: none;
+  vertical-align: middle;
+  overflow: hidden;
+  user-select: none;
+
+  outline-style: none;
+
+  & .fluent-compound-icon__filled-icon {
+    display: none;
+  }
+  & .fluent-compound-icon__regular-icon {
+    display: inline;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover:active {
+    outline-style: none;
+  }
+
+  /* Transition styles */
+
+  @apply duration-Faster ease-EasyEase;
+  @apply transition-background-color transition-\[border\] transition-color;
+  transition-property: background-color, border, color;
+
+  /*&:focus-visible {*/
+  /*  border-color: var(--colorStrokeFocus2);*/
+  /*  border-radius: var(--borderRadiusMedium);*/
+  /*  border-width: 1px;*/
+  /*  outline: var(--strokeWidthThick) solid var(--colorTransparentStroke);*/
+  /*  box-shadow: 0 0 0 var(--strokeWidthThin) var(--colorStrokeFocus2) inset;*/
+  /*  z-index: 1;*/
+  /*}*/
+}

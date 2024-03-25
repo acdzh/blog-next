@@ -1,0 +1,113 @@
+/* Appearance variations */
+.fluent-button--appearance-primary {
+  @apply border-none;
+  background-color: var(--colorBrandBackground);
+  color: var(--colorNeutralForegroundOnBrand);
+
+  &:hover {
+    @apply border-none;
+    background-color: var(--colorBrandBackgroundHover);
+    color: var(--colorNeutralForegroundOnBrand);
+  }
+
+  &:hover:active {
+    @apply border-none;
+    background-color: var(--colorBrandBackgroundPressed);
+    color: var(--colorNeutralForegroundOnBrand);
+  }
+}
+
+.fluent-button--appearance-secondary {
+  /* The secondary styles are exactly the same as the base styles. */
+  background-color: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+  border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+
+  &:hover {
+    background-color: var(--colorNeutralBackground1Hover);
+    border-color: var(--colorNeutralStroke1Hover);
+    color: var(--colorNeutralForeground1Hover);
+  }
+
+  &:hover:active {
+    background-color: var(--colorNeutralBackground1Pressed);
+    /*border-color: var(--colorNeutralStroke1Pressed);*/
+    color: var(--colorNeutralForeground1Pressed);
+  }
+}
+
+.fluent-button--appearance-outline {
+  background-color: var(--colorTransparentBackground);
+  color: var(--colorNeutralForeground1);
+  border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+
+  &:hover {
+    background-color: var(--colorTransparentBackgroundHover);
+  }
+
+  &:hover:active {
+    background-color: var(--colorTransparentBackgroundPressed);
+  }
+}
+
+.fluent-button--appearance-subtle {
+  @apply border-none;
+  background-color: var(--colorSubtleBackground);
+  color: var(--colorNeutralForeground2);
+
+  &:hover,
+  &:hover:active {
+    & .fluent-compound-icon__filled-icon {
+      display: inline;
+    }
+    & .fluent-compound-icon__regular-icon {
+      display: none;
+    }
+  }
+
+  &:hover {
+    @apply border-none;
+    background-color: var(--colorSubtleBackgroundHover);
+    color: var(--colorNeutralForeground2Hover);
+    & .fluent-button__icon {
+      color: var(--colorNeutralForeground2BrandHover);
+    }
+  }
+
+  &:hover:active {
+    @apply border-none;
+    background-color: var(--colorSubtleBackgroundPressed);
+    color: var(--colorNeutralForeground2Pressed);
+    & .fluent-button__icon {
+      color: var(--colorNeutralForeground2BrandPressed);
+    }
+  }
+}
+
+.fluent-button--appearance-transparent {
+  @apply border-none;
+  background-color: var(--colorTransparentBackground);
+  color: var(--colorNeutralForeground2);
+
+  &:hover,
+  &:hover:active {
+    & .fluent-compound-icon__filled-icon {
+      display: inline;
+    }
+    & .fluent-compound-icon__regular-icon {
+      display: none;
+    }
+  }
+
+  &:hover {
+    @apply border-none;
+    background-color: var(--colorTransparentBackgroundHover);
+    color: var(--colorNeutralForeground2BrandHover);
+  }
+
+  &:hover:active {
+    @apply border-none;
+    background-color: var(--colorTransparentBackgroundPressed);
+    color: var(--colorNeutralForeground2BrandPressed);
+  }
+}

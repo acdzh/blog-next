@@ -1,0 +1,7 @@
+.fluent-button--disabled,
+.fluent-button--disabled:hover,
+.fluent-button--disabled:hover:active {
+  & .fluent-button__icon {
+    color: var(--colorNeutralForegroundDisabled);
+  }
+}

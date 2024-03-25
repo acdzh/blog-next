@@ -1,0 +1,42 @@
+/* Size variations */
+.fluent-button--size-small {
+  @apply min-w-64;
+  @apply py-3 px-S;
+  @apply rounded-Medium;
+  @apply text-Base-200 leading-Base-200 font-normal;
+
+  &.fluent-button--icon {
+    @apply py-1;
+  }
+
+  &.fluent-button--only-icon {
+    @apply min-w-24 max-w-24;
+  }
+}
+
+.fluent-button--size-medium {
+  @apply min-w-96;
+  @apply py-5 px-M;
+  @apply rounded-Medium;
+  @apply text-Base-300 leading-Base-300;
+  /*@apply font-semibold;*/
+
+  &.fluent-button--only-icon {
+    @apply min-w-32 max-w-32;
+  }
+}
+.fluent-button--size-large {
+  @apply min-w-96;
+  @apply py-8 px-L;
+  @apply rounded-Medium;
+  @apply text-Base-400 leading-Base-400;
+  /*@apply font-semibold;*/
+
+  &.fluent-button--icon {
+    @apply py-7;
+  }
+  &.fluent-button--only-icon {
+    @apply min-w-40 max-w-40;
+  }
+}
+

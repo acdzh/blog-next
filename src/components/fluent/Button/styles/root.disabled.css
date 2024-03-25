@@ -1,0 +1,41 @@
+/* Base styles */
+.fluent-button--disabled,
+.fluent-button--disabled:hover,
+.fluent-button--disabled:hover:active {
+  background-color: var(--colorNeutralBackgroundDisabled);
+  border-color: var(--colorNeutralStrokeDisabled);
+  color: var(--colorNeutralForegroundDisabled);
+
+  cursor: not-allowed;
+}
+
+/* Appearance variations */
+.fluent-button--disabled.fluent-button--appearance-outline {
+  background-color: var(--colorTransparentBackground);
+
+  &:hover, &:hover:active {
+    background-color: var(--colorTransparentBackground);
+  }
+}
+
+.fluent-button--disabled.fluent-button--appearance-primary {
+  @apply border-transparent;
+
+  &:hover, &:hover:active {
+    @apply border-transparent;
+  }
+}
+
+.fluent-button--disabled.fluent-button--appearance-secondary {
+  /* The secondary styles are exactly the same as the base styles. */
+}
+
+.fluent-button--disabled.fluent-button--appearance-subtle,
+.fluent-button--disabled.fluent-button--appearance-subtle:hover,
+.fluent-button--disabled.fluent-button--appearance-subtle:hover:active,
+.fluent-button--disabled.fluent-button--appearance-transparent,
+.fluent-button--disabled.fluent-button--appearance-transparent:hover,
+.fluent-button--disabled.fluent-button--appearance-transparent:hover:active {
+  @apply border-transparent;
+  background-color: var(--colorTransparentBackground);
+}

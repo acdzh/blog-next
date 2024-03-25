@@ -1,0 +1,12 @@
+/* Shape variations */
+.fluent-button--shape-circular {
+  @apply rounded-full;
+}
+
+.fluent-button--shape-rounded {
+  /* The borderRadius rounded styles are handled in the size variations */
+}
+
+.fluent-button--shape-square {
+  @apply rounded-none;
+}

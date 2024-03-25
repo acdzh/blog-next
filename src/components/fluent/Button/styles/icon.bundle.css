@@ -1,0 +1,15 @@
+.fluent-button .fluent-button__icon--regular {
+  @apply inline-flex;
+}
+
+.fluent-button .fluent-button__icon--filled {
+  @apply hidden;
+}
+
+.fluent-button:not(.fluent-button--disabled):hover .fluent-button__icon--regular {
+  @apply hidden;
+}
+
+.fluent-button:not(.fluent-button--disabled):hover .fluent-button__icon--filled {
+  @apply inline-flex;
+}

@@ -1,0 +1,35 @@
+.tocButton {
+  @apply max-w-full h-28 px-M;
+  @apply block rounded-Medium;
+  @apply border-none decoration-none outline-none select-none;
+  @apply font-sans align-middle truncate tracking-tight;
+  @apply text-Base-300 bg-SubtleBackground;
+  @apply hover:cursor-pointer;
+  @apply hover:text-NeutralForeground2Hover hover:bg-SubtleBackgroundHover;
+  @apply hover:active:text-NeutralForeground2Pressed hover:active:bg-SubtleBackgroundPressed
+  transition: color, background;
+  @apply duration-Fast ease-EasyEase;
+}
+
+.tocButton:before {
+  transform: translateY(-50%) scale(0);
+  top: 50%;
+  left: -8px;
+  content: "";
+  transition: all;
+  @apply absolute z-1;
+  @apply w-3 h-full;
+  @apply rounded-Medium;
+  @apply duration-Slower ease-EasyEase;
+}
+
+.tocButton:hover:before {
+  @apply bg-BrandStroke2;
+  transform: translateY(-50%) scale(1);
+}
+
+.tocButton:after {
+  content: attr(title);
+  @apply block h-0 overflow-hidden invisible;
+  @apply font-semibold;
+}
