@@ -18,6 +18,10 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  experimental: {
+    legacyBrowsers: false,
+    browsersListForSwc: true,
+  }
   // webpack(config) {
   //
   // },
