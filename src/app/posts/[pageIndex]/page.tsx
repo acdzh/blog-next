@@ -35,3 +35,5 @@ export default function Posts({ params }: { params: { pageIndex: string } }) {
 export async function generateStaticParams() {
   return allPostsGroupedByPage.map((_, index) => ({ pageIndex: index + 1 + '' }));
 }
+
+export const runtime = 'edge';

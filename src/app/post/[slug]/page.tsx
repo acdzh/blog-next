@@ -45,3 +45,5 @@ export default function Post({ params }: { params: { slug: string } }) {
 export async function generateStaticParams() {
   return Object.keys(slugPostMap).map((slug) => ({ slug }));
 }
+
+export const runtime = 'edge';
