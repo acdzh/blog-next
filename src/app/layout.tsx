@@ -23,7 +23,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-CN" suppressHydrationWarning>
+    <html
+      lang="zh-CN"
+      className={typeof window === 'undefined' ? 'light' : (window.__currentTheme as string)}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: htmlInjectCode }} />
         <title>{BLOG_TITLE}</title>

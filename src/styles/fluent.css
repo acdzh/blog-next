@@ -5,7 +5,7 @@
     --strokeWidthThickest: 4px;
 }
 
-:root.light {
+:root, :root.light {
     --colorNeutralForeground1: #242424;
     --colorNeutralForeground1Hover: #242424;
     --colorNeutralForeground1Pressed: #242424;
