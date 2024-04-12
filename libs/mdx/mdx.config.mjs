@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import { MdxIndexPlugin } from './mdx-index-plugin.mjs';
 import { mdxLoader } from './mdx-loader.mjs';
 import { MdxLoggerPlugin } from './mdx-logger-plugin.mjs';
+import { MdxWebpConvertPlugin } from './mdx-webp-convert-plugin.mjs';
 
 const config = {
   input: 'content', // input directory
@@ -19,6 +20,7 @@ const config = {
     new MdxLoggerPlugin({
       whitelist: ['.md', '.mdx', '.mjs'],
     }),
+    new MdxWebpConvertPlugin(),
   ],
 };
 

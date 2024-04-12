@@ -108,6 +108,7 @@ export class MdxCompiler {
               return {};
           }
         }),
+        raw: rule.raw,
       };
     });
     return _options;
@@ -157,15 +158,17 @@ export class MdxCompiler {
     const srcPath = npath.join(input, name);
 
     const use = [];
+    let raw = false;
     for (const rule of this.options.module.rules) {
       if (!rule.test.test(name)) continue;
+      raw = rule.raw ?? false;
       use.push(...rule.use);
     }
 
     if (use.length === 0) {
       this.copyFile(name);
     } else {
-      let content = fs.readFileSync(srcPath, use[0].loader.raw ? 'binary' : 'utf8');
+      let content = fs.readFileSync(srcPath, raw ? undefined : 'utf8');
       for (const { loader, options } of use) {
         try {
           const result = await loader.bind(this)(content, name, options);

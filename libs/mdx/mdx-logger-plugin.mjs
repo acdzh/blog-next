@@ -1,4 +1,4 @@
-import path from 'path';
+import npath from 'path';
 
 export class MdxLoggerPlugin {
   constructor(config) {
@@ -8,7 +8,7 @@ export class MdxLoggerPlugin {
   }
 
   isNameOk(name) {
-    const ext = path.extname(name);
+    const ext = npath.extname(name);
     const { whitelist, blacklist } = this.config;
     if (blacklist.length > 0 && blacklist.includes(ext)) {
       return false;

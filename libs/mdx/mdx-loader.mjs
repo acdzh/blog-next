@@ -10,13 +10,15 @@ import rehypePrettyCode from 'rehype-pretty-code';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 
-import remarkMdxImages from 'remark-mdx-images';
+// import remarkMdxImages from 'remark-mdx-images';
+import rehypeMdxImportMedia from 'rehype-mdx-import-media'
 import remarkParse from 'remark-parse';
 import remarkSlug from 'remark-slug';
 import remarkSectionize from '@acdzh/remark-sectionize';
 
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
+import remarkWebpConvert from './remark-webp-convert.mjs';
 import rehypeImgFigure from './rehype-img-figure.mjs';
 import rehypeCustomComponents from './rehype-custom-components.mjs';
 
@@ -88,7 +90,8 @@ export async function mdxLoader(content, name) {
     // jsx: true,
     format: getFileFormatForMdxCompiler(name),
     remarkPlugins: [
-      remarkMdxImages,
+      // remarkMdxImages,
+      remarkWebpConvert,
       remarkMath,
       remarkParse,
       remarkGfm,
@@ -98,6 +101,7 @@ export async function mdxLoader(content, name) {
       [remarkExtractTocMdx, { name: 'toc' }],
     ],
     rehypePlugins: [
+      rehypeMdxImportMedia,
       rehypeKatex,
       [rehypeAutolinkHeadings, { behavior: 'append' }],
       [rehypePrettyCode, {
