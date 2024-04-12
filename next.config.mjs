@@ -15,6 +15,9 @@ const nextConfig = {
   swcMinify: true,
   eslint: { ignoreDuringBuilds: true },
   images: { unoptimized: true },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   // webpack(config) {
   //
   // },

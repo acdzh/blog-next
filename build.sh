@@ -1,3 +1,3 @@
 npm i -g pnpm && pnpm i
 tree
-pnpm build
+pnpx @cloudflare/next-on-pages
