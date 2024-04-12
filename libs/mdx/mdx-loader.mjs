@@ -61,6 +61,8 @@ const getMetaCode = (content, cleanContent, name, frontMatter) => {
       sourceFileDir,
       contentType,
       flattenedPath,
+      hasCode: cleanContent.includes('`'),
+      hasMath: cleanContent.includes('$'),
     },
     __hash: crypto.createHash('md5').update(content).digest('hex'),
   };

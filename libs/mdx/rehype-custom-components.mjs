@@ -1,5 +1,4 @@
 import { visit } from 'unist-util-visit';
-import { h } from 'hastscript';
 
 function rehypeCustomComponents(options = {}) {
   const { componentNames = ['iframe2'] } = options;

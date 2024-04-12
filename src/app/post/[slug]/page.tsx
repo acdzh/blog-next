@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { Footer } from '@components/Footer';
-import { Header } from '@components/Header';
-
-import { slugPostMap } from '@libs/posts';
-
 import { PostArticle } from './components/PostArticle';
 import { PostAside } from './components/PostAside';
+
+import { Footer } from '@components/Footer';
+import { Header } from '@components/Header';
+import { slugPostMap } from '@libs/posts';
 
 export default function Post({ params }: { params: { slug: string } }) {
   const post = slugPostMap[params.slug] ?? slugPostMap[decodeURIComponent(params.slug)];
@@ -28,16 +27,20 @@ export default function Post({ params }: { params: { slug: string } }) {
         <PostAside toc={toc} sourceFilePath={rawMeta.__raw.sourceFilePath} />
       </main>
       <Footer />
-      <link
-        href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"
-        type="text/css"
-        rel="stylesheet"
-      />
-      <link
-        href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/firacode/6.2.0/fira_code.min.css"
-        type="text/css"
-        rel="stylesheet"
-      />
+      {rawMeta.__raw.hasCode && (
+        <link
+          href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/firacode/6.2.0/fira_code.min.css"
+          type="text/css"
+          rel="stylesheet"
+        />
+      )}
+      {rawMeta.__raw.hasMath && (
+        <link
+          href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.15.2/katex.min.css"
+          type="text/css"
+          rel="stylesheet"
+        />
+      )}
     </>
   );
 }

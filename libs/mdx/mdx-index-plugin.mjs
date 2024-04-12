@@ -30,6 +30,8 @@ export type PostRawMetaType = {
     sourceFileDir: string;
     contentType: string;
     flattenedPath: string;
+    hasCode: boolean;
+    hasMath: boolean;
   }
   __hash: string;
 };
