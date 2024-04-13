@@ -33,7 +33,14 @@ function rehypeImgFigure() {
           title && h('figcaption', { 'data-rehype-img-figure-caption': '' }, title),
         ].filter(Boolean));
       }
-
+    });
+    visit(tree, (n => n.tagName === 'p'), (node, index, parent) => {
+      if (node.children.length === 1) {
+        const child = node.children[0];
+        if (child.tagName === 'figure' && child.properties['dataRehypeImgFigure'] !== undefined) {
+          parent.children[index] = child;
+        }
+      }
     });
   }
 }

@@ -20,8 +20,8 @@ const config = {
     new MdxLoggerPlugin({
       whitelist: ['.md', '.mdx', '.mjs'],
     }),
-    new MdxWebpConvertPlugin(),
-  ],
+    process.env.NODE_ENV === 'production' && new MdxWebpConvertPlugin(),
+  ].filter(Boolean),
 };
 
 export default config;

@@ -83,7 +83,6 @@ const getMetaCode = (content, cleanContent, name, frontMatter) => {
 };
 
 export async function mdxLoader(content, name) {
-  const { encodePath } = this.options;
   const { content: cleanContent, data: frontMatter } = grayMatter(content);
   const metaCode = getMetaCode(content, cleanContent, name, frontMatter);
   const result = (await compile(cleanContent, {
@@ -91,7 +90,7 @@ export async function mdxLoader(content, name) {
     format: getFileFormatForMdxCompiler(name),
     remarkPlugins: [
       // remarkMdxImages,
-      remarkWebpConvert,
+      process.env.NODE_ENV === 'production' && remarkWebpConvert,
       remarkMath,
       remarkParse,
       remarkGfm,
@@ -99,7 +98,7 @@ export async function mdxLoader(content, name) {
       [remarkSectionize, { flatten: true }],
       remarkExtractToc,
       [remarkExtractTocMdx, { name: 'toc' }],
-    ],
+    ].filter(Boolean),
     rehypePlugins: [
       rehypeMdxImportMedia,
       rehypeKatex,

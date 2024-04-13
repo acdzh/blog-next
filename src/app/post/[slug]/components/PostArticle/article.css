@@ -139,6 +139,13 @@ article {
   }
 }
 
+/* math */
+article {
+  .katex-display > .katex {
+    @apply <sm:whitespace-normal;
+  }
+}
+
 /* code */
 article {
   /* token 使用主题颜色 */

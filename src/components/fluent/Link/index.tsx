@@ -13,7 +13,9 @@ export type LinkProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyo
 
 export const Link = (props: LinkProps) => {
   const {
-    isRelative = typeof props.href !== 'string' || props.href.startsWith('/'),
+    isRelative = typeof props.href !== 'string' ||
+      props.href.startsWith('/') ||
+      props.href.startsWith('#'),
     appearance = 'default',
     disabled = false,
     children,
@@ -30,7 +32,7 @@ export const Link = (props: LinkProps) => {
         p0 m0 box-border
         bg-transparent  inline
         font-sans font-normal text-left
-       
+        <sm:break-all
         `,
         {
           'cursor-pointer': !disabled,
