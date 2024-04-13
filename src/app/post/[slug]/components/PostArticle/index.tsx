@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatDateTime } from 'src/utils/data';
 
 import { mdxComponents } from './components/mdxComponents';
 
@@ -6,7 +7,6 @@ import { PostType } from '@libs/posts';
 
 import './article.css';
 
-const formatDateString = (s: Date) => s.toString();
 export const PostArticle = ({ post }: { post: PostType }) => {
   const { meta, Component } = post;
   return (
@@ -20,7 +20,7 @@ export const PostArticle = ({ post }: { post: PostType }) => {
           meta?.author || meta?.author || 'UNKNOWN'
         )}
         &nbsp;·&nbsp;
-        {meta.date && <>{formatDateString(meta.date)}</>}
+        {meta.date && <>{formatDateTime(meta.date, 'yyyy-MM-dd hh:mm:ss')}</>}
       </p>
       <Component components={mdxComponents} />
     </article>
