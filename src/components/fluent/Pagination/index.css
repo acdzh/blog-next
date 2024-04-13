@@ -1,0 +1,42 @@
+.fluent-pagination {
+  @apply flex gap-S;
+
+  & .fluent-pagination__item {
+    @apply w-36 h-36 p-0;
+    @apply select-none outline-none border-none cursor-pointer;
+    @apply text-Base-400 leading-Base-400;
+    @apply rounded-Medium;
+    background-color: var(--colorSubtleBackground);
+    color: var(--colorNeutralForeground2);
+
+    &:hover {
+      @apply border-none;
+      background-color: var(--colorSubtleBackgroundHover);
+      color: var(--colorNeutralForeground2Hover);
+      & .fluent-button__icon {
+        color: var(--colorNeutralForeground2BrandHover);
+      }
+    }
+
+    &:hover:active {
+      @apply border-none;
+      background-color: var(--colorSubtleBackgroundPressed);
+      color: var(--colorNeutralForeground2Pressed);
+      & .fluent-button__icon {
+        color: var(--colorNeutralForeground2BrandPressed);
+      }
+    }
+  }
+
+  & .fluent-pagination__item--disabled {
+    &,
+    &:hover,
+    &:hover:active {
+      background-color: var(--colorNeutralBackgroundDisabled);
+      border-color: var(--colorNeutralStrokeDisabled);
+      color: var(--colorNeutralForegroundDisabled);
+
+      cursor: not-allowed;
+    }
+  }
+}

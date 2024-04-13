@@ -1,12 +1,11 @@
-import Link from 'next/link';
 import React from 'react';
+
+import { PLATFORMS } from './constants';
 
 import { Button } from '@components/fluent/Button';
 import { BLOG_AUTHOR, BLOG_TITLE } from '@constants/blog';
 
-import { PLATFORMS } from './constants';
-
-export const Footer = () => {
+export const Footer = (): React.ReactNode => {
   return (
     <footer
       className="

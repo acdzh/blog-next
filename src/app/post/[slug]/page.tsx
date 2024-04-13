@@ -5,27 +5,25 @@ import { PostAside } from './components/PostAside';
 
 import { Footer } from '@components/Footer';
 import { Header } from '@components/Header';
+import { Main } from '@components/Main';
 import { slugPostMap } from '@libs/posts';
 
-export default function Post({ params }: { params: { slug: string } }) {
+export function Post({ params }: { params: { slug: string } }) {
   const post = slugPostMap[params.slug] ?? slugPostMap[decodeURIComponent(params.slug)];
+  if (!post) {
+    return `can not find ${params.slug}`;
+  }
   const { meta, toc, rawMeta } = post;
   return (
     <>
       {/*TODO: SEO*/}
-      <Header title={meta.title} />
-      <main
-        className="
-          flex-1 relative
-          mx-auto max-w-screen-xl px-S sm:px-L py-L sm:py-XL
-          lg:flex lg:flex-row lg:justify-start lg:gap-60
-        "
-      >
+      <Header title={meta.title} isTocButtonShow={true} />
+      <Main>
         <div className="lg:flex-1 lg:min-w-0 mx-auto sm:shadow-Normal-2">
           <PostArticle post={post} />
         </div>
         <PostAside toc={toc} sourceFilePath={rawMeta.__raw.sourceFilePath} />
-      </main>
+      </Main>
       <Footer />
       {rawMeta.__raw.hasCode && (
         <link
@@ -44,6 +42,8 @@ export default function Post({ params }: { params: { slug: string } }) {
     </>
   );
 }
+
+export default Post;
 
 export async function generateStaticParams() {
   return Object.keys(slugPostMap).map((slug) => ({ slug }));

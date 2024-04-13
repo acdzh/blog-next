@@ -15,9 +15,10 @@ import { toggleTheme, useTheme } from '@hooks/useTheme';
 
 export type HeaderPropsType = {
   title?: string;
+  isTocButtonShow?: boolean;
 };
 
-export const Header: React.FC<HeaderPropsType> = ({ title }) => {
+export const Header = ({ title, isTocButtonShow = false }: HeaderPropsType): React.ReactNode => {
   const { theme } = useTheme();
   const [isExpandNavShow, toggleIsExpandNavShow] = useToggle(false);
 
@@ -139,20 +140,22 @@ export const Header: React.FC<HeaderPropsType> = ({ title }) => {
             }}
             onClick={() => window.scroll({ top: 0, behavior: 'smooth' })}
           />
-          <Button
-            title="显示或隐藏目录"
-            aria-label="显示或隐藏目录"
-            appearance="subtle"
-            size="large"
-            className="lg:hidden! mr-S"
-            icon={{
-              regular: <span className="i-fluent:text-bullet-list-24-regular" />,
-              filled: <span className="i-fluent:text-bullet-list-24-filled" />,
-            }}
-            onClick={() => {
-              window && window.dispatchEvent(new Event('toggle-toc'));
-            }}
-          />
+          {isTocButtonShow && (
+            <Button
+              title="显示或隐藏目录"
+              aria-label="显示或隐藏目录"
+              appearance="subtle"
+              size="large"
+              className="lg:hidden! mr-S"
+              icon={{
+                regular: <span className="i-fluent:text-bullet-list-24-regular" />,
+                filled: <span className="i-fluent:text-bullet-list-24-filled" />,
+              }}
+              onClick={() => {
+                window && window.dispatchEvent(new Event('toggle-toc'));
+              }}
+            />
+          )}
           <Button
             title="切换主题"
             aria-label="切换主题"

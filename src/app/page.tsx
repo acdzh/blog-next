@@ -3,6 +3,7 @@ import React from 'react';
 import { allPostsGroupedByPage } from '@libs/posts';
 import { Header } from '@components/Header';
 import { Footer } from '@components/Footer';
+import { Posts }  from './posts/[pageIndex]/page';
 
 // // This file allows you to provide custom React components
 // // to be used in MDX files. You can import and use any
@@ -49,19 +50,20 @@ import { Footer } from '@components/Footer';
 // }
 
 export default function Home() {
-  const metas = allPostsGroupedByPage[0].map((post) => post.meta);
-  return (
-    <>
-      <Header />
-      <div className="mx-auto max-w-xl py-8">
-        {metas.map(({ slug, title }) => (
-          <div key={slug}>
-            <Link href={`/post/${slug}`}>{title}</Link>
-          </div>
-        ))}
-        <Link href="/posts/2">next</Link>
-      </div>
-      <Footer />
-    </>
-  );
+  return <Posts params={{ pageIndex: '1' }} />
+  // const metas = allPostsGroupedByPage[0].map((post) => post.meta);
+  // return (
+  //   <>
+  //     <Header />
+  //     <div className="mx-auto max-w-xl py-8">
+  //       {metas.map(({ slug, title }) => (
+  //         <div key={slug}>
+  //           <Link href={`/post/${slug}`}>{title}</Link>
+  //         </div>
+  //       ))}
+  //       <Link href="/posts/2">next</Link>
+  //     </div>
+  //     <Footer />
+  //   </>
+  // );
 }
