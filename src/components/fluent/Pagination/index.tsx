@@ -59,7 +59,7 @@ export const Pagination: React.FC<PaginationPropsType> = ({ current, total }) =>
         <span className="i-fluent:chevron-left-20-filled inline-flex w-20 h-20 m-S" />
       </PaginationItem>
       {Array.from({ length: total }).map((_, index) => (
-        <PaginationItem onClick={() => go(index + 1)} disabled={current === index + 1}>
+        <PaginationItem key={index} onClick={() => go(index + 1)} disabled={current === index + 1}>
           {index + 1}
         </PaginationItem>
       ))}

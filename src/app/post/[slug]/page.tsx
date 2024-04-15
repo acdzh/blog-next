@@ -19,7 +19,7 @@ export function Post({ params }: { params: { slug: string } }) {
       {/*TODO: SEO*/}
       <Header title={meta.title} isTocButtonShow={true} />
       <Main>
-        <div className="lg:flex-1 lg:min-w-0 mx-auto sm:shadow-Normal-2">
+        <div className="lg:flex-1 lg:min-w-0 mx-auto rounded-Medium sm:shadow-Normal-2">
           <PostArticle post={post} />
         </div>
         <PostAside toc={toc} sourceFilePath={rawMeta.__raw.sourceFilePath} />

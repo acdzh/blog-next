@@ -256,8 +256,8 @@ article {
 
 /* img */
 article {
-  & p img {
-    @apply max-w-full h-auto bg-NeutralBackground1; /* 透明图片背景与文档一致 */
+  & p img, & figure img {
+    @apply max-w-648 h-auto bg-transparent; /* 透明图片背景与文档一致 */
     @apply rounded-Medium shadow-Normal-2 sm:shadow-Normal-4;
   }
 
@@ -267,7 +267,7 @@ article {
     @apply text-center;
     @apply relative;
     & > img {
-      @apply max-w-full h-auto block mx-auto;
+      @apply block mx-auto;
     }
     & > figcaption[data-rehype-img-figure-caption] {
       @apply mt-S text-gray text-Base-300 leading-Base-300;
