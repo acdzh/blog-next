@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { TOC_BUTTON_HEIGHT, TocButton } from './components/TocButton';
 import { useFlattenToc } from './hooks/useFlattenToc';
@@ -15,6 +15,38 @@ export const Toc = ({ toc = [] }: { toc: PostTocType }) => {
   const tocMinDepth = useFlattenTocMinDepth(flattenToc);
   const { tocFirstActiveIndex, tocLastActiveIndex, tocActiveCount, tocActiveIndexMap } =
     useTocActiveParams(flattenToc);
+
+  const containerRef = React.useRef<HTMLUListElement>(null);
+  const tipBarTop = tocFirstActiveIndex * TOC_BUTTON_HEIGHT;
+  const tipBarBottom = (tocLastActiveIndex + 1) * TOC_BUTTON_HEIGHT;
+  const tipBarHeight = tipBarBottom - tipBarTop;
+
+  useEffect(
+    () => {
+      if(containerRef.current === null) {
+        return;
+      }
+      const containerScrollTop = containerRef.current.scrollTop;
+      const containerClientHeight = containerRef.current.clientHeight;
+      const isTipBarTopOutside = tipBarTop - containerScrollTop < 0;
+      const isTipBarBottomOutside = tipBarBottom - containerScrollTop > containerClientHeight;
+
+
+      if (isTipBarTopOutside && isTipBarBottomOutside) {
+        return; // 上下都超出了，无法处理
+      }
+
+      if (isTipBarTopOutside || isTipBarBottomOutside) {
+        const newContainerScrollTop = isTipBarTopOutside ? tipBarTop : tipBarBottom - containerClientHeight;
+        containerRef.current.scroll({
+          top: newContainerScrollTop,
+          behavior: 'smooth',
+        });
+      }
+    },
+    [containerRef, flattenToc, tocFirstActiveIndex, tocLastActiveIndex]
+  );
+
 
   const jumpToId = useCallback(
     (id?: string) => {
@@ -44,13 +76,13 @@ export const Toc = ({ toc = [] }: { toc: PostTocType }) => {
       >
         目录
       </div>
-      <ul className="mt-L pl-8 relative max-h-[70vh] overflow-y-auto overscroll-y-contain">
+      <ul className="mt-L pl-8 relative max-h-[70vh] overflow-y-auto overscroll-y-contain" ref={containerRef}>
         <div
           className="absolute z-2 w-3 bg-BrandStroke1 rounded-Medium"
           style={{
             opacity: tocActiveCount > 0 ? 1 : 0,
-            height: `${(tocLastActiveIndex - tocFirstActiveIndex + 1) * TOC_BUTTON_HEIGHT}px`,
-            top: `${tocFirstActiveIndex * TOC_BUTTON_HEIGHT}px`,
+            height: `${tipBarHeight}px`,
+            top: `${tipBarTop}px`,
             left: '0',
             transition: 'all 0.2s ease',
           }}
