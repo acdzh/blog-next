@@ -191,8 +191,21 @@ article {
       @apply px-M py-S rounded-t-Medium;
       @apply text-Base-300 leading-Base-300 font-semibold;
 
+      &:after {
+        content: attr(data-language);
+        @apply text-gray float-right;
+      }
+
       & + pre {
         @apply rounded-t-none!;
+
+        &:before {
+          @apply top-36;
+        }
+
+        &:after {
+          @apply hidden;
+        }
       }
     }
 
@@ -202,9 +215,15 @@ article {
       @apply text-Base-300 leading-Base-400 font-normal; /* 代码行高大一些 */
       @apply rounded-Medium; /* 不用考虑有标题或 Caption 的问题，看不出来 */
 
+      &:before {
+        content: "";
+        @apply absolute left-0 top-0 bottom-6; /* 避让底部滚动条 */
+        @apply w-48 glass;
+      }
+
       &:after {
         content: attr(data-language);
-        @apply absolute top-M right-L text-gray;
+        @apply absolute top-S right-L px-S py-XS text-gray glass rounded-Medium;
       }
 
       & code {
@@ -212,12 +231,13 @@ article {
 
         & > span[data-line] {
           /* min-w-0 为了防止 span 行撑开父元素，没有找到更好的办法 */
-          @apply px-L min-w-0;
+          @apply pl-48 pr-L min-w-0;
 
           &::before {
             counter-increment: line;
             content: counter(line);
-            @apply inline-block w-16 mr-16 text-right text-gray;
+            @apply absolute left-0 inline-block;
+            @apply w-32 pr-16 text-right text-gray;
           }
 
           &[data-highlighted-line] {
@@ -230,10 +250,10 @@ article {
             @apply rounded-Medium;
             @apply light:bg-[#dee0e8] dark:bg-[#393942];
             .light & {
-              box-shadow: 0 0 0 4px #dee0e8;
+              box-shadow: 0 0 2px 2px #dee0e8;
             }
             .dark & {
-              box-shadow: 0 0 0 4px #393942;
+              box-shadow: 0 0 2px 2px #393942;
             }
           }
         }
