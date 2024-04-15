@@ -118,7 +118,7 @@
     /*--colorCompoundBrandBackgroundPressed: #0f548c;*/
     /*--colorBrandBackgroundStatic: #0f6cbd;*/
     --colorBrandBackground2: #ebf3fc;
-    /*--colorBrandBackground2Hover: #cfe4fa;*/
+    --colorBrandBackground2Hover: #cfe4fa;
     /*--colorBrandBackground2Pressed: #96c6fa;*/
     /*--colorBrandBackgroundInverted: #ffffff;*/
     /*--colorBrandBackgroundInvertedHover: #ebf3fc;*/
@@ -142,8 +142,8 @@
     /*--colorNeutralStrokeOnBrand2Selected: #ffffff;*/
     --colorBrandStroke1: #0f6cbd;
     --colorBrandStroke2: #b4d6fa;
-    /*--colorBrandStroke2Hover: #77b7f7;*/
-    /*--colorBrandStroke2Pressed: #0f6cbd;*/
+    --colorBrandStroke2Hover: #77b7f7;
+    --colorBrandStroke2Pressed: #0f6cbd;
     /*--colorBrandStroke2Contrast: #b4d6fa;*/
     /*--colorCompoundBrandStroke: #0f6cbd;*/
     /*--colorCompoundBrandStrokeHover: #115ea3;*/
@@ -476,7 +476,7 @@
     /*--colorCompoundBrandBackgroundPressed: #2886de;*/
     /*--colorBrandBackgroundStatic: #0f6cbd;*/
     --colorBrandBackground2: #082338;
-    /*--colorBrandBackground2Hover: #0c3b5e;*/
+    --colorBrandBackground2Hover: #0c3b5e;
     /*--colorBrandBackground2Pressed: #061724;*/
     /*--colorBrandBackgroundInverted: #ffffff;*/
     /*--colorBrandBackgroundInvertedHover: #ebf3fc;*/
@@ -500,8 +500,8 @@
     /*--colorNeutralStrokeOnBrand2Selected: #ffffff;*/
     --colorBrandStroke1: #479ef5;
     --colorBrandStroke2: #0e4775;
-    /*--colorBrandStroke2Hover: #0e4775;*/
-    /*--colorBrandStroke2Pressed: #0a2e4a;*/
+    --colorBrandStroke2Hover: #0e4775;
+    --colorBrandStroke2Pressed: #0a2e4a;
     /*--colorBrandStroke2Contrast: #0e4775;*/
     /*--colorCompoundBrandStroke: #479ef5;*/
     /*--colorCompoundBrandStrokeHover: #62abf5;*/
