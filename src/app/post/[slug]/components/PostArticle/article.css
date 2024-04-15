@@ -277,8 +277,9 @@ article {
 /* img */
 article {
   & p img, & figure img {
-    @apply max-w-648 h-auto bg-transparent; /* 透明图片背景与文档一致 */
+    @apply h-auto bg-transparent; /* 透明图片背景与文档一致 */
     @apply rounded-Medium shadow-Normal-2 sm:shadow-Normal-4;
+    max-width: min(100%, 648px);
   }
 
   /* 图片块 */
