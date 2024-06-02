@@ -1,4 +1,10 @@
-import { defineConfig, presetAttributify, presetIcons, presetUno } from 'unocss';
+import {
+  defineConfig,
+  presetAttributify,
+  presetIcons,
+  presetUno,
+  transformerDirectives,
+} from 'unocss';
 
 import { fluentTheme } from './libs/fluent/theme';
 
@@ -63,4 +69,5 @@ export default defineConfig({
     },
   },
   presets: [presetUno(), presetIcons(), presetAttributify()],
+  transformers: [transformerDirectives()],
 });

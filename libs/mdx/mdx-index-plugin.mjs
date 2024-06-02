@@ -67,7 +67,7 @@ export class MdxIndexPlugin {
       this.mdxFilePathSet = new Set(existingMdxFilePaths);
       const rootPath = npath.join(output, '..');
       const existingMdxFileRelativePaths = existingMdxFilePaths.map(path => {
-        const relativePath = npath.relative(rootPath, path);
+        const relativePath = npath.relative(rootPath, path).replace(/\\/g, '/');
         const md5 = crypto.createHash('md5').update(relativePath).digest('hex').slice(0, 6);
         return [relativePath, md5];
       });

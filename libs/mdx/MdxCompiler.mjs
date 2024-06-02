@@ -190,7 +190,7 @@ export class MdxCompiler {
   async compile() {
     const { input } = this.options;
     this.hooks.compile.call();
-    const names = glob.sync(npath.join(input, '**/*.*'), { nodir: true }).map((path) => npath.relative(input, path));
+    const names = glob.sync(npath.join(input, '**/*.*').replace(/\\/g, '/'), { nodir: true }).map((path) => npath.relative(input, path));
     await Promise.all(names.map(this.loadFile.bind(this))).catch((error) => {
       this.emitError(error);
     });

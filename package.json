@@ -39,9 +39,10 @@
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "@unocss/postcss": "^0.58.3",
-    "@unocss/reset": "^0.58.3",
-    "@unocss/webpack": "^0.58.3",
+    "@unocss/postcss": "^0.60.4",
+    "@unocss/reset": "^0.60.4",
+    "@unocss/webpack": "^0.60.4",
+    "@unocss/transformer-directives": "^0.60.4",
     "chokidar": "^3.5.3",
     "cssnano": "^6.0.3",
     "eslint": "^8.56.0",
@@ -81,7 +82,7 @@
     "shikiji": "0.9",
     "typescript": "^5.3.3",
     "unist-util-visit": "^5.0.0",
-    "unocss": "^0.58.3",
+    "unocss": "^0.60.4",
     "webpack": "^5.89.0"
   }
 }
