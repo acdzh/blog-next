@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import './responsive-iframe.css';
 
 const isSSR = typeof window === 'undefined';

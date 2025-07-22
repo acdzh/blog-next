@@ -7,7 +7,8 @@ import { Main } from '@components/Main';
 import { Pagination } from '@components/fluent/Pagination';
 import { allPostsGroupedByPage, ALL_POST_PAGE_COUNT } from '@libs/posts';
 
-export function Posts({ params }: { params: { pageIndex: string } }) {
+export async function Posts(props: { params: Promise<{ pageIndex: string }> }) {
+  const params = await props.params;
   const pageIndex = Number(params.pageIndex);
   const metas = allPostsGroupedByPage[pageIndex - 1].map((post) => post.meta);
   return (
@@ -35,4 +36,4 @@ export async function generateStaticParams() {
   return allPostsGroupedByPage.map((_, index) => ({ pageIndex: index + 1 + '' }));
 }
 
-export const runtime = 'edge';
+// export const runtime = 'edge';

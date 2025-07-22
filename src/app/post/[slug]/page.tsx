@@ -8,7 +8,8 @@ import { Header } from '@components/Header';
 import { Main } from '@components/Main';
 import { slugPostMap } from '@libs/posts';
 
-export function Post({ params }: { params: { slug: string } }) {
+export async function Post(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const post = slugPostMap[params.slug] ?? slugPostMap[decodeURIComponent(params.slug)];
   if (!post) {
     return `can not find ${params.slug}`;
@@ -49,4 +50,4 @@ export async function generateStaticParams() {
   return Object.keys(slugPostMap).map((slug) => ({ slug }));
 }
 
-export const runtime = 'edge';
+// export const runtime = 'edge';

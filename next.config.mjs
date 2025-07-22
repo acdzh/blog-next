@@ -10,18 +10,13 @@ import { withNextMdx } from './libs/mdx/withNextMdx.mjs';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output: 'export',
+  output: 'export',
   reactStrictMode: true,
-  swcMinify: true,
   eslint: { ignoreDuringBuilds: true },
   images: { unoptimized: true },
   typescript: {
     ignoreBuildErrors: true,
   },
-  experimental: {
-    legacyBrowsers: false,
-    browsersListForSwc: true,
-  }
   // webpack(config) {
   //
   // },
