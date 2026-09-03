@@ -1,24 +1,7 @@
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "baseUrl": ".",
-    "target": "es2015",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "paths": {
       "@root/*": ["./*"],
       "@src/*": ["./src/*"],
@@ -30,12 +13,11 @@
     }
   },
   "include": [
-    "next-env.d.ts",
     "**/*.mjs",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".mdx",
+    "**/*.astro",
+    "src/env.d.ts"
   ],
   "exclude": ["node_modules"]
 }

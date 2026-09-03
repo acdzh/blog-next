@@ -1,0 +1,31 @@
+---
+import '@components/post/shortcodes/responsive-iframe.css';
+
+interface Props {
+  aid?: string;
+  bid?: string;
+  page?: number;
+  width?: number;
+  height?: number;
+}
+
+const { aid, bid, page = 1, width = 16, height = 9 } = Astro.props;
+
+const params = [
+  aid ? `aid=${aid}` : undefined,
+  bid ? `bvid=${bid}` : undefined,
+  `page=${page}`,
+  'high_quality=1',
+].filter(Boolean).join('&');
+
+const paddingTop = `${(100 * height) / width + 7.69}%`;
+---
+
+<p class="responsive-iframe-container" style={`padding-top: ${paddingTop}`}>
+  <iframe
+    src={`//player.bilibili.com/player.html?${params}`}
+    allowfullscreen
+    loading="lazy"
+    title="bilibili"
+  />
+</p>

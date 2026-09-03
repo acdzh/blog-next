@@ -1,0 +1,84 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Main from '../../components/Main.astro';
+import Footer from '../../components/Footer.astro';
+import { getAllPosts } from '@libs/posts';
+import { formatDateTime } from '@src/utils/data';
+import { BLOG_GITHUB_REPO_HOST } from '@constants/blog';
+
+import '@styles/article.css';
+
+export async function getStaticPaths() {
+  const allPosts = await getAllPosts();
+  return allPosts.map((post) => ({
+    params: { slug: post.meta.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { entry, meta } = post;
+const { Content, headings } = await render(entry);
+---
+
+<BaseLayout title={meta.title} hasCode={meta.hasCode} hasMath={meta.hasMath}>
+  <Header title={meta.title} isTocButtonShow={true} />
+  <Main>
+    <div class="lg:flex-1 lg:min-w-0 mx-auto rounded-Medium sm:shadow-Normal-2">
+      <article class="px-L py-0 sm:px-XXXL sm:py-XXL">
+        <h1 class="mt-0 mb-M pt-0 pb-0 text-Base-800">{meta.title}</h1>
+        <p class="mb-M text-Base-300 text-NeutralForeground3 uppercase">
+          by&nbsp;
+          {meta.from ? (
+            <a href={meta.from}>{meta.author}</a>
+          ) : (
+            meta.author || 'UNKNOWN'
+          )}
+          &nbsp;&middot;&nbsp;
+          {meta.date && formatDateTime(meta.date, 'yyyy-MM-dd hh:mm:ss')}
+        </p>
+        <Content />
+      </article>
+    </div>
+    <aside class="lg:flex-0 lg:shrink-0 lg:w-280" id="post-aside">
+      <div class="sticky top-86 h-[calc(100vh-146px)]">
+        <nav>
+          <div class="pl-20 text-Base-400 font-sans font-semibold bg-none hover:cursor-pointer" id="toc-title">
+            目录
+          </div>
+          <ul class="mt-L pl-8 relative max-h-[70vh] overflow-y-auto overscroll-y-contain">
+            {headings.map(({ depth, slug: headingSlug, text }) => (
+              <li class="relative list-none">
+                <a
+                  href={`#${headingSlug}`}
+                  class="block py-XS pr-S text-Base-300 leading-Base-300 hover:text-BrandForegroundLink no-underline"
+                  style={`padding-left: ${(depth - 1) * 12 + 12}px`}
+                >
+                  {text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div class="h-1 mx-12 my-L bg-NeutralStroke1 rounded-Medium"></div>
+        <div>
+          <a href={`${BLOG_GITHUB_REPO_HOST}/tree/master/content/${meta.sourceFilePath}`} class="inline-flex items-center px-M py-S text-Base-300 hover:text-BrandForegroundLink no-underline">
+            在 Github 上编辑此页
+            <span class="i-fluent:arrow-up-right-16-regular ml-XS text-Base-300"></span>
+          </a>
+        </div>
+      </div>
+    </aside>
+  </Main>
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Scroll to top when clicking TOC title
+  const tocTitle = document.getElementById('toc-title');
+  tocTitle?.addEventListener('click', () => {
+    window.scroll({ top: 0, behavior: 'smooth' });
+  });
+</script>

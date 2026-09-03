@@ -1,8 +1,12 @@
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import { BLOG_AUTHOR, BLOG_POST_COUNT_PER_PAGE } from '@constants/blog';
-import type { RawPostType } from '@root/.mdx';
-import { allRawPosts } from '@root/.mdx';
 
-export type * from '@root/.mdx';
+export type TocItem = {
+  depth: number;
+  slug: string;
+  text: string;
+};
 
 export type MetaType = {
   title: string;
@@ -16,64 +20,109 @@ export type MetaType = {
   series: string[];
   from: string;
   author: string;
+  hasCode: boolean;
+  hasMath: boolean;
+  /** File path relative to content dir, for "edit on GitHub" links */
+  sourceFilePath: string;
 };
 
-export type PostType = RawPostType & {
+export type PostType = {
+  entry: CollectionEntry<'posts'>;
   meta: MetaType;
 };
 
-export const allPosts: PostType[] = allRawPosts
-  .map(({ rawMeta, toc, Component }) => {
-    const meta: MetaType = {
-      title: rawMeta?.title || '无标题',
-      description: rawMeta?.description || rawMeta?.__content.slice(0, 200),
-      slug: rawMeta?.slug || rawMeta.__raw.flattenedPath,
-      date: rawMeta?.date ? new Date(rawMeta.date) : new Date('2020'),
-      draft: !!rawMeta.draft,
-      comment: rawMeta?.comment !== false,
-      noLicense: rawMeta?.nolicense !== false,
-      tags: rawMeta?.tags || [],
-      series: rawMeta?.series || [],
-      from: rawMeta?.from ?? '',
-      author: rawMeta?.author ?? BLOG_AUTHOR.name,
-    };
-    return {
-      meta,
-      toc,
-      rawMeta,
-      Component,
-    };
-  })
-  .sort((a: PostType, b: PostType) => b.meta.date.getTime() - a.meta.date.getTime());
+/**
+ * Derive a URL slug from the content collection entry id.
+ *
+ * entry.id examples:
+ *   "2020/1231 - 十分钟学会光线追踪/index.md"  -> "2020__1231_-_十分钟学会光线追踪"
+ *   "2019/1009 - vhdx文件装载后无法卸载.md"     -> "2019__1009_-_vhdx文件装载后无法卸载"
+ *   "about.md"                                  -> "about"
+ *
+ * Rules:
+ *   - For index.md / index.mdx files, use the parent directory path.
+ *   - Otherwise, use the file path without extension.
+ *   - Replace `/` with `__` and spaces with `_`.
+ */
+function deriveSlug(entryId: string): string {
+  let raw = entryId;
+  // If the file is index.md(x), strip it and use the directory path
+  if (/\/index\.mdx?$/.test(raw)) {
+    raw = raw.replace(/\/index\.mdx?$/, '');
+  } else {
+    // Strip extension
+    raw = raw.replace(/\.mdx?$/, '');
+  }
+  // Replace path separators with __, spaces with _
+  return raw.replace(/\//g, '__').replace(/ /g, '_');
+}
 
-export const allPostsGroupedByPage: PostType[][] = Array.from(
-  { length: Math.ceil(allPosts.length / BLOG_POST_COUNT_PER_PAGE) },
-  (_, i) =>
-    allPosts.slice(
+export async function getAllPosts(): Promise<PostType[]> {
+  const entries = await getCollection('posts');
+
+  const posts: PostType[] = entries
+    .map((entry) => {
+      const data = entry.data;
+      const body = entry.body ?? '';
+      const slug = data.slug || deriveSlug(entry.id);
+
+      const meta: MetaType = {
+        title: data.title ?? '无标题',
+        description: data.description || body.slice(0, 200),
+        slug,
+        date: data.date ?? new Date('2020'),
+        draft: !!data.draft,
+        comment: data.comment !== false,
+        noLicense: !!data.nolicense,
+        tags: data.tags ?? [],
+        series: data.series ?? [],
+        from: data.from ?? '',
+        author: data.author || BLOG_AUTHOR.name,
+        hasCode: body.includes('`'),
+        hasMath: body.includes('$'),
+        sourceFilePath: entry.id,
+      };
+
+      return { entry, meta };
+    })
+    .filter((post) => !post.meta.draft)
+    .sort((a, b) => b.meta.date.getTime() - a.meta.date.getTime());
+
+  return posts;
+}
+
+export function getPostsGroupedByPage(posts: PostType[]): PostType[][] {
+  const pageCount = Math.ceil(posts.length / BLOG_POST_COUNT_PER_PAGE);
+  return Array.from({ length: pageCount }, (_, i) =>
+    posts.slice(
       i * BLOG_POST_COUNT_PER_PAGE,
       i * BLOG_POST_COUNT_PER_PAGE + BLOG_POST_COUNT_PER_PAGE,
     ),
-);
+  );
+}
 
-export const slugPostMap = allPosts.reduce(
-  (acc, post) => {
-    acc[post.meta.slug] = post;
-    return acc;
-  },
-  {} as Record<string, PostType>,
-);
+export async function getSlugPostMap(): Promise<Record<string, PostType>> {
+  const posts = await getAllPosts();
+  return posts.reduce(
+    (acc, post) => {
+      acc[post.meta.slug] = post;
+      return acc;
+    },
+    {} as Record<string, PostType>,
+  );
+}
 
-export const tagsPostMap: Record<string, PostType[]> = {};
-allPosts.forEach((post) => {
-  post.meta.tags.forEach((tag) => {
-    if (!tagsPostMap[tag]) {
-      tagsPostMap[tag] = [post];
-    } else {
-      tagsPostMap[tag].push(post);
-    }
+export async function getTagsPostMap(): Promise<Record<string, PostType[]>> {
+  const posts = await getAllPosts();
+  const map: Record<string, PostType[]> = {};
+  posts.forEach((post) => {
+    post.meta.tags.forEach((tag) => {
+      if (!map[tag]) {
+        map[tag] = [post];
+      } else {
+        map[tag].push(post);
+      }
+    });
   });
-});
-
-export const ALL_POST_COUNT: number = allPosts.length;
-
-export const ALL_POST_PAGE_COUNT: number = allPostsGroupedByPage.length;
+  return map;
+}

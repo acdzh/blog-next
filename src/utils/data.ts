@@ -1,5 +1,5 @@
-export function formatDateTime(date, format) {
-  const o = {
+export function formatDateTime(date: Date, format: string): string {
+  const o: Record<string, number | string> = {
     'M+': date.getMonth() + 1, // 月份
     'd+': date.getDate(), // 日
     'h+': date.getHours() % 12 === 0 ? 12 : date.getHours() % 12, // 小时
@@ -18,7 +18,7 @@ export function formatDateTime(date, format) {
     if (new RegExp('(' + k + ')').test(format)) {
       format = format.replace(
         RegExp.$1,
-        RegExp.$1.length === 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length),
+        RegExp.$1.length === 1 ? String(o[k]) : ('00' + o[k]).substr(('' + o[k]).length),
       );
     }
   }

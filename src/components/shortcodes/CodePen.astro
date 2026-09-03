@@ -1,0 +1,28 @@
+---
+interface Props {
+  id: string;
+  height?: number;
+  defaultTab?: string;
+  editable?: boolean;
+}
+
+const { id, height = 600, defaultTab = 'html,result', editable = false } = Astro.props;
+
+// Theme defaults to 'light'; will be updated client-side if needed
+const theme = 'light';
+const src = `https://codepen.io/acdzh/embed/${id}?height=${height}&theme-id=${theme}&default-tab=${defaultTab}&editable=${editable}`;
+---
+
+<p class="rounded-md border dark:border-true-gray-700 light:shadow">
+  <iframe
+    class="rounded-md"
+    height={height}
+    scrolling="no"
+    style="width: 100%"
+    title="CodePen"
+    src={src}
+    frameborder="no"
+    loading="lazy"
+    allowfullscreen
+  />
+</p>

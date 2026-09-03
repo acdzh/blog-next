@@ -1,0 +1,67 @@
+---
+import { BLOG_TITLE, BLOG_DESCRIPTION } from '@constants/blog';
+
+import '@unocss/reset/normalize.css';
+import '@styles/globals.css';
+import '@styles/fluent.css';
+
+interface Props {
+  title?: string;
+}
+
+const { title = BLOG_TITLE } = Astro.props;
+---
+
+<html lang="zh-CN" class="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="description" content={BLOG_DESCRIPTION} />
+    <title>{title}</title>
+    <slot name="head" />
+    <script is:inline>
+      (function () {
+        var isInSameOriginIFrame = false;
+        if (window.self !== window.parent) {
+          try {
+            isInSameOriginIFrame = window.parent.location.origin === window.location.origin;
+          } catch (e) {}
+        }
+        window.__userSettingTheme = (function() {
+          var e;
+          try { e = window.localStorage.getItem('theme'); } catch (e) {}
+          if ('dark' == e || 'light' == e || 'auto' == e) return e;
+          return 'auto';
+        })();
+        window.__systemPrefersTheme = (function() {
+          var t = window.matchMedia('(prefers-color-scheme: dark)');
+          if ('boolean' == typeof t.matches) return t.matches ? 'dark' : 'light';
+          return 'auto';
+        })();
+        window.__currentTheme = (function() {
+          if (isInSameOriginIFrame) {
+            if ('dark' == parent.__currentTheme || 'light' == parent.__currentTheme) return parent.__currentTheme;
+          }
+          if ('dark' == window.__userSettingTheme || 'light' == window.__userSettingTheme) return window.__userSettingTheme;
+          if ('auto' == window.__userSettingTheme) return window.__systemPrefersTheme;
+        })();
+        if ('dark' == window.__currentTheme) {
+          document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('light');
+        } else if ('light' == window.__currentTheme) {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('light');
+        }
+        var m = document.getElementsByName('theme-color');
+        if ('undefined' != typeof m[0]) {
+          m[0].setAttribute('content', 'dark' == window.__currentTheme ? '#272727' : '#ffffff');
+        }
+      })();
+    </script>
+  </head>
+  <body class="w-full min-h-screen m-0 p-0 relative overscroll-none flex flex-col justify-stretch bg-NeutralBackground1 text-StrokeFocus2 font-sans">
+    <slot />
+  </body>
+</html>

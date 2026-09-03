@@ -1,0 +1,50 @@
+---
+import clsx from 'clsx';
+
+interface Props {
+  href: string;
+  class?: string;
+  appearance?: 'default' | 'subtle';
+  disabled?: boolean;
+  [key: string]: any;
+}
+
+const {
+  href,
+  class: className,
+  appearance = 'default',
+  disabled = false,
+  ...rest
+} = Astro.props;
+
+const isRelative = href.startsWith('/') || href.startsWith('#');
+
+const linkClass = clsx(
+  `select-text decoration-none decoration-1
+  p0 m0 box-border
+  bg-transparent inline
+  font-sans font-normal text-left
+  <sm:break-all`,
+  {
+    'cursor-pointer': !disabled,
+    'cursor-not-allowed': disabled,
+    'hover:underline': !disabled,
+    'text-NeutralForegroundDisabled': disabled,
+    'text-BrandForegroundLink hover:text-BrandForegroundLinkHover active:text-BrandForegroundLinkPressed':
+      !disabled && appearance === 'default',
+    'text-NeutralForeground2 hover:text-NeutralForeground2Hover active:text-NeutralForeground2Pressed':
+      !disabled && appearance === 'subtle',
+  },
+  className,
+);
+---
+
+<a
+  href={disabled ? undefined : href}
+  class={linkClass}
+  target={isRelative ? undefined : '_blank'}
+  rel={isRelative ? undefined : 'noreferrer'}
+  {...rest}
+>
+  <slot />
+</a>

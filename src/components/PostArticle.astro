@@ -1,0 +1,24 @@
+---
+import { formatDateTime } from 'src/utils/data';
+import '@styles/article.css';
+
+interface Props {
+  title: string;
+  author: string;
+  from?: string;
+  date: Date;
+}
+
+const { title, author, from, date } = Astro.props;
+---
+
+<article class="px-L py-0 sm:px-XXXL sm:py-XXL">
+  <h1 class="mt-0 mb-M pt-0 pb-0 text-Base-800">{title}</h1>
+  <p class="mb-M text-Base-300 text-NeutralForeground3 uppercase">
+    by&nbsp;
+    {from ? <a href={from}>{author}</a> : author}
+    &nbsp;&middot;&nbsp;
+    {formatDateTime(date, 'yyyy-MM-dd hh:mm:ss')}
+  </p>
+  <slot />
+</article>
