@@ -6,13 +6,7 @@
 }
 
 .fluent-button--size-small .fluent-button__icon,
-.fluent-button--size-medium .fluent-button__icon
-{
-  font-size: 20px;
-  height: 20px;
-  width: 20px;
-}
- {
+.fluent-button--size-medium .fluent-button__icon {
   font-size: 20px;
   height: 20px;
   width: 20px;

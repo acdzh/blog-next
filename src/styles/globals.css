@@ -6,8 +6,7 @@ html.dark {
 }
 
 html {
-  @apply font-sans
-  /*@apply scroll-smooth;*/
+  @apply font-sans;
 }
 
 /* 滚动条 */
@@ -34,4 +33,4 @@ html {
 }
 
 /* 选中 */
-::selection { @apply text-shadow-none bg-BrandBackground2Hover 1dark:bg-gray-700  }
+::selection { @apply text-shadow-none bg-BrandBackground2Hover dark:bg-gray-700; }
