@@ -4,7 +4,7 @@ export const BLOG_BASE_URL = 'https://blog.acdzh.com';
 
 export const BLOG_AUTHOR = {
   name: 'acdzh',
-}
+};
 
 export const BLOG_GITHUB_REPO_AUTHOR = 'acdzh';
 export const BLOG_GITHUB_REPO_NAME = 'blog_next';
@@ -15,6 +15,6 @@ export const BLOG_SOCIAL_USERNAMES = {
   twitter: 'acdzh',
   steam: 'acdzh',
   mail: 'acdzh@outlook.com',
-}
+};
 
 export const BLOG_POST_COUNT_PER_PAGE = 8;
