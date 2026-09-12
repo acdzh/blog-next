@@ -1,5 +1,5 @@
 ---
-import { BLOG_TITLE, BLOG_DESCRIPTION } from '@constants/blog';
+import { BLOG_TITLE, BLOG_DESCRIPTION, BLOG_BASE_URL } from '@constants/blog';
 
 import '@unocss/reset/normalize.css';
 import '@styles/globals.css';
@@ -7,9 +7,13 @@ import '@styles/fluent.css';
 
 interface Props {
   title?: string;
+  description?: string;
+  hasCode?: boolean;
+  hasMath?: boolean;
 }
 
-const { title = BLOG_TITLE } = Astro.props;
+const { title = BLOG_TITLE, description = BLOG_DESCRIPTION, hasCode = false, hasMath = false } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, BLOG_BASE_URL).href;
 ---
 
 <html lang="zh-CN" class="light">
@@ -18,8 +22,32 @@ const { title = BLOG_TITLE } = Astro.props;
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="theme-color" content="#ffffff" />
-    <meta name="description" content={BLOG_DESCRIPTION} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={BLOG_TITLE} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <title>{title}</title>
+    {hasCode && (
+      <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/fira_code.min.css"
+        type="text/css"
+        rel="stylesheet"
+      />
+    )}
+    {hasMath && (
+      <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"
+        type="text/css"
+        rel="stylesheet"
+      />
+    )}
     <slot name="head" />
     <script is:inline>
       (function () {
