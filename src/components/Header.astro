@@ -25,26 +25,30 @@ const displayTitle = title || BLOG_TITLE;
           首页
         </Button>
       </a>
-      <Button appearance="subtle" size="large">
+      <Button appearance="subtle" size="large" disabled>
         <span slot="icon-regular" class="i-fluent:bookmark-multiple-24-regular" />
         <span slot="icon-filled" class="i-fluent:bookmark-multiple-24-filled" />
         系列
       </Button>
-      <Button appearance="subtle" size="large">
+      <Button appearance="subtle" size="large" disabled>
         <span slot="icon-regular" class="i-fluent:tag-multiple-24-regular" />
         <span slot="icon-filled" class="i-fluent:tag-multiple-24-filled" />
         标签
       </Button>
-      <Button appearance="subtle" size="large">
-        <span slot="icon-regular" class="i-fluent:person-24-regular" />
-        <span slot="icon-filled" class="i-fluent:person-24-filled" />
-        关于
-      </Button>
-      <Button appearance="subtle" size="large">
-        <span slot="icon-regular" class="i-fluent:rss-24-regular" />
-        <span slot="icon-filled" class="i-fluent:rss-24-filled" />
-        RSS
-      </Button>
+      <a href="/post/about">
+        <Button appearance="subtle" size="large">
+          <span slot="icon-regular" class="i-fluent:person-24-regular" />
+          <span slot="icon-filled" class="i-fluent:person-24-filled" />
+          关于
+        </Button>
+      </a>
+      <a href="/rss.xml">
+        <Button appearance="subtle" size="large">
+          <span slot="icon-regular" class="i-fluent:rss-24-regular" />
+          <span slot="icon-filled" class="i-fluent:rss-24-filled" />
+          RSS
+        </Button>
+      </a>
     </div>
 
     {/* Mobile: hamburger + title */}
@@ -115,32 +119,36 @@ const displayTitle = title || BLOG_TITLE;
         </a>
       </div>
       <div class="mb-XXS">
-        <Button appearance="transparent" size="large">
+        <Button appearance="transparent" size="large" disabled>
           <span slot="icon-regular" class="i-fluent:bookmark-multiple-24-regular" />
           <span slot="icon-filled" class="i-fluent:bookmark-multiple-24-filled" />
           系列
         </Button>
       </div>
       <div class="mb-XXS">
-        <Button appearance="transparent" size="large">
+        <Button appearance="transparent" size="large" disabled>
           <span slot="icon-regular" class="i-fluent:tag-multiple-24-regular" />
           <span slot="icon-filled" class="i-fluent:tag-multiple-24-filled" />
           标签
         </Button>
       </div>
       <div class="mb-XXS">
-        <Button appearance="transparent" size="large">
-          <span slot="icon-regular" class="i-fluent:person-24-regular" />
-          <span slot="icon-filled" class="i-fluent:person-24-filled" />
-          关于
-        </Button>
+        <a href="/post/about">
+          <Button appearance="transparent" size="large">
+            <span slot="icon-regular" class="i-fluent:person-24-regular" />
+            <span slot="icon-filled" class="i-fluent:person-24-filled" />
+            关于
+          </Button>
+        </a>
       </div>
       <div class="mb-XXS">
-        <Button appearance="transparent" size="large">
-          <span slot="icon-regular" class="i-fluent:rss-24-regular" />
-          <span slot="icon-filled" class="i-fluent:rss-24-filled" />
-          RSS
-        </Button>
+        <a href="/rss.xml">
+          <Button appearance="transparent" size="large">
+            <span slot="icon-regular" class="i-fluent:rss-24-regular" />
+            <span slot="icon-filled" class="i-fluent:rss-24-filled" />
+            RSS
+          </Button>
+        </a>
       </div>
     </div>
   </nav>

@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 import UnoCSS from 'unocss/astro';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
@@ -18,6 +19,7 @@ export default defineConfig({
   integrations: [
     UnoCSS({ injectReset: true }),
     mdx({ extensions: ['.mdx', '.md'] }),
+    sitemap(),
   ],
   markdown: {
     syntaxHighlight: false,
