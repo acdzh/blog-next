@@ -2,8 +2,8 @@
   overflow: hidden;
   padding-top: 56.25%;
   position: relative;
-  @apply rounded-md light:shadow;
-  @apply border dark:border-true-gray-700;
+  @apply rounded-Medium light:shadow-Normal-2;
+  @apply border dark:border-neutral-700;
 
   iframe {
     width: 100%;
