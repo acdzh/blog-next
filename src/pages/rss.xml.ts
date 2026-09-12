@@ -1,5 +1,5 @@
 import rss from '@astrojs/rss';
-import { BLOG_TITLE, BLOG_DESCRIPTION } from '@root/libs/constants/blog';
+import { BLOG_TITLE, BLOG_DESCRIPTION } from '@constants/blog';
 import { getAllPosts } from '@libs/posts';
 
 export async function GET(context) {

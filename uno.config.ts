@@ -6,7 +6,7 @@ import {
   transformerDirectives,
 } from 'unocss';
 
-import { fluentTheme } from './libs/fluent/theme';
+import { fluentTheme } from './src/libs/fluent/theme';
 
 const normalSpacingMap = new Array(1024).fill(0).reduce((acc, _, i) => {
   acc[i + 1] = `${i + 1}px`;

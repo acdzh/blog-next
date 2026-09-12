@@ -3,10 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@root/*": ["./*"],
       "@src/*": ["./src/*"],
       "@libs/*": ["./src/libs/*"],
-      "@hooks/*": ["./src/hooks/*"],
       "@components/*": ["./src/components/*"],
       "@constants/*": ["./src/constants/*"],
       "@styles/*": ["./src/styles/*"]

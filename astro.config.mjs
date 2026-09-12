@@ -6,12 +6,12 @@ import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
 import remarkSlug from 'remark-slug';
 import remarkSectionize from '@acdzh/remark-sectionize';
-import remarkAutoImportShortcodes from './libs/mdx/remark-auto-import-shortcodes.mjs';
+import remarkAutoImportShortcodes from './src/libs/mdx/remark-auto-import-shortcodes.mjs';
 
 import rehypeKatex from 'rehype-katex';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
-import rehypeImgFigure from './libs/mdx/rehype-img-figure.mjs';
+import rehypeImgFigure from './src/libs/mdx/rehype-img-figure.mjs';
 
 export default defineConfig({
   site: 'https://blog.acdzh.com',
