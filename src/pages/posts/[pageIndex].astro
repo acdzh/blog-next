@@ -4,10 +4,10 @@ import Header from '../../components/Header.astro';
 import Main from '../../components/Main.astro';
 import Footer from '../../components/Footer.astro';
 import Pagination from '../../components/fluent/Pagination.astro';
-import { getAllPosts, getPostsGroupedByPage } from '@libs/posts';
+import { getListPosts, getPostsGroupedByPage } from '@libs/posts';
 
 export async function getStaticPaths() {
-  const allPosts = await getAllPosts();
+  const allPosts = await getListPosts();
   const pages = getPostsGroupedByPage(allPosts);
   return pages
     .map((pagePosts, index) => ({

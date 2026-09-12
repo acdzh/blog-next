@@ -91,6 +91,13 @@ export async function getAllPosts(): Promise<PostType[]> {
   return posts;
 }
 
+const STANDALONE_SLUGS = new Set(['about']);
+
+export async function getListPosts(): Promise<PostType[]> {
+  const posts = await getAllPosts();
+  return posts.filter((post) => !STANDALONE_SLUGS.has(post.meta.slug));
+}
+
 export function getPostsGroupedByPage(posts: PostType[]): PostType[][] {
   const pageCount = Math.ceil(posts.length / BLOG_POST_COUNT_PER_PAGE);
   return Array.from({ length: pageCount }, (_, i) =>
