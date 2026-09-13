@@ -21,6 +21,9 @@
     "@iconify-json/simple-icons": "^1.1.88",
     "@types/node": "^20.11.5",
     "@unocss/astro": "^66.9.2",
+    "@unocss/preset-attributify": "^66.9.2",
+    "@unocss/preset-icons": "^66.9.2",
+    "@unocss/preset-uno": "^66.9.2",
     "@unocss/reset": "^66.9.2",
     "@unocss/transformer-directives": "^66.9.2",
     "cssnano": "^6.0.3",
@@ -34,7 +37,6 @@
     "remark-math": "^6.0.0",
     "remark-slug": "^7.0.1",
     "typescript": "^5.3.3",
-    "unist-util-visit": "^5.0.0",
-    "unocss": "^66.9.2"
+    "unist-util-visit": "^5.0.0"
   }
 }

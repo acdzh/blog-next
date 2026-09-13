@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import UnoCSS from 'unocss/astro';
+import UnoCSS from '@unocss/astro';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
 import remarkSlug from 'remark-slug';
