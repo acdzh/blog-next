@@ -20,8 +20,6 @@ export type MetaType = {
   series: string[];
   from: string;
   author: string;
-  hasCode: boolean;
-  hasMath: boolean;
   /** File path relative to content dir, for "edit on GitHub" links */
   sourceFilePath: string;
 };
@@ -73,13 +71,11 @@ export async function getAllPosts(): Promise<PostType[]> {
         date: data.date ?? new Date('2020'),
         draft: !!data.draft,
         comment: data.comment !== false,
-        noLicense: !!data.nolicense,
+        noLicense: data.nolicense !== false,
         tags: data.tags ?? [],
         series: data.series ?? [],
         from: data.from ?? '',
         author: data.author || BLOG_AUTHOR.name,
-        hasCode: body.includes('`'),
-        hasMath: body.includes('$'),
         sourceFilePath: entry.id,
       };
 

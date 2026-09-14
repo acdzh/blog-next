@@ -8,11 +8,9 @@ import '@styles/fluent.css';
 interface Props {
   title?: string;
   description?: string;
-  hasCode?: boolean;
-  hasMath?: boolean;
 }
 
-const { title = BLOG_TITLE, description = BLOG_DESCRIPTION, hasCode = false, hasMath = false } = Astro.props;
+const { title = BLOG_TITLE, description = BLOG_DESCRIPTION } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, BLOG_BASE_URL).href;
 ---
 
@@ -34,20 +32,16 @@ const canonicalURL = new URL(Astro.url.pathname, BLOG_BASE_URL).href;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <title>{title}</title>
-    {hasCode && (
-      <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/fira_code.min.css"
-        type="text/css"
-        rel="stylesheet"
-      />
-    )}
-    {hasMath && (
-      <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"
-        type="text/css"
-        rel="stylesheet"
-      />
-    )}
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/fira_code.min.css"
+      type="text/css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"
+      type="text/css"
+      rel="stylesheet"
+    />
     <slot name="head" />
     <script is:inline>
       (function () {

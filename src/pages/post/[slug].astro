@@ -23,7 +23,7 @@ const { entry, meta } = post;
 const { Content, headings } = await render(entry);
 ---
 
-<BaseLayout title={meta.title} description={meta.description} hasCode={meta.hasCode} hasMath={meta.hasMath}>
+<BaseLayout title={meta.title} description={meta.description}>
   <Header title={meta.title} isTocButtonShow={true} />
   <Main>
     <div class="lg:flex-1 lg:min-w-0 mx-auto rounded-Medium sm:shadow-Normal-2">
