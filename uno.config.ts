@@ -1,19 +1,16 @@
-import {
-  defineConfig,
-  presetAttributify,
-  presetIcons,
-  presetUno,
-  transformerDirectives,
-} from 'unocss';
+import presetAttributify from '@unocss/preset-attributify';
+import presetIcons from '@unocss/preset-icons';
+import presetUno from '@unocss/preset-uno';
+import transformerDirectives from '@unocss/transformer-directives';
 
-import { fluentTheme } from './libs/fluent/theme';
+import { fluentTheme } from './src/libs/fluent/theme';
 
 const normalSpacingMap = new Array(1024).fill(0).reduce((acc, _, i) => {
   acc[i + 1] = `${i + 1}px`;
   return acc;
 }, {});
 
-export default defineConfig({
+export default {
   content: {
     filesystem: ['**/*.{html,js,ts,jsx,tsx,vue,svelte,astro}'],
     // exclude: ['.git/**/*', 'node_modules/**/*'],
@@ -46,7 +43,7 @@ export default defineConfig({
     fontFamily: {
       sans: `"Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif`,
       serif: `"Georgia", "serif"`,
-      mono: `"Fira Code VF", "Fira Code", Monaco, Menlo, Consolas, "Droid Sans Mono", "Courier New", monospace`,
+      mono: `"Maple Mono NF CN", Monaco, Menlo, Consolas, "Droid Sans Mono", "Courier New", monospace`,
     },
     borderWidth: {
       ...normalSpacingMap,
@@ -70,4 +67,4 @@ export default defineConfig({
   },
   presets: [presetUno(), presetIcons(), presetAttributify()],
   transformers: [transformerDirectives()],
-});
+};

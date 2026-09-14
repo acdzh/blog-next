@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Main from '../components/Main.astro';
+import Footer from '../components/Footer.astro';
+import Pagination from '../components/fluent/Pagination.astro';
+import PostList from '../components/PostList.astro';
+import { getListPosts, getPostsGroupedByPage } from '@libs/posts';
+
+const allPosts = await getListPosts();
+const pages = getPostsGroupedByPage(allPosts);
+const metas = pages[0].map((post) => post.meta);
+const totalPages = pages.length;
+---
+
+<BaseLayout>
+  <Header isTocButtonShow={false} />
+  <Main>
+    <div>
+      <PostList metas={metas} />
+      <Pagination current={1} total={totalPages} />
+    </div>
+  </Main>
+  <Footer />
+</BaseLayout>

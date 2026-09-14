@@ -1,0 +1,62 @@
+---
+import { BLOG_AUTHOR, BLOG_TITLE, BLOG_SOCIAL_USERNAMES } from '@constants/blog';
+import Button from './fluent/Button.astro';
+
+const platforms = [
+  {
+    name: 'Github',
+    href: `https://github.com/${BLOG_SOCIAL_USERNAMES.github}`,
+    iconRegular: 'i-simple-icons:github',
+    iconFilled: 'i-simple-icons:githubcopilot text-github',
+  },
+  {
+    name: 'Twitter',
+    href: `https://twitter.com/${BLOG_SOCIAL_USERNAMES.twitter}`,
+    iconRegular: 'i-simple-icons:twitter',
+    iconFilled: 'i-simple-icons:x text-twitter',
+  },
+  {
+    name: 'Steam',
+    href: `https://steamcommunity.com/id/${BLOG_SOCIAL_USERNAMES.steam}`,
+    iconRegular: 'i-simple-icons:steam',
+    iconFilled: 'i-simple-icons:steam text-steam',
+  },
+  {
+    name: 'Email',
+    href: `mailto:${BLOG_SOCIAL_USERNAMES.mail}`,
+    iconRegular: 'i-simple-icons:gmail',
+    iconFilled: 'i-simple-icons:gmail text-mail',
+  },
+  {
+    name: 'RSS',
+    href: '/rss.xml',
+    iconRegular: 'i-simple-icons:rss',
+    iconFilled: 'i-simple-icons:rss text-rss',
+  },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="w-full box-border max-w-screen-xl mx-auto px-48px py-24px <sm:text-center sm:flex sm:flex-row-reverse sm:justify-between">
+  <section class="<sm:mb-12px text-StrokeFocus2">
+    {platforms.map(({ name, href, iconRegular, iconFilled }, index) => (
+      <a
+        class={index < platforms.length - 1 ? 'mr-12' : ''}
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        title={name}
+        aria-label={name}
+      >
+        <Button title={name} aria-label={name} appearance="subtle" size="medium">
+          <span slot="icon-regular" class={iconRegular} />
+          <span slot="icon-filled" class={iconFilled} />
+        </Button>
+      </a>
+    ))}
+  </section>
+  <section class="text-Base-400 leading-Base-400 text-StrokeFocus2">
+    {BLOG_TITLE} &copy; {year} {BLOG_AUTHOR.name}
+  </section>
+</footer>

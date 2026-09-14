@@ -1,0 +1,90 @@
+---
+import clsx from 'clsx';
+
+import './Button/styles/root.base.css';
+import './Button/styles/root.appearance.css';
+import './Button/styles/root.shape.css';
+import './Button/styles/root.size.css';
+import './Button/styles/root.disabled.css';
+import './Button/styles/icon.css';
+import './Button/styles/icon.bundle.css';
+import './Button/styles/icon.disabled.css';
+
+interface Props {
+  class?: string;
+  appearance?: 'secondary' | 'primary' | 'outline' | 'subtle' | 'transparent';
+  disabled?: boolean;
+  iconPosition?: 'before' | 'after';
+  shape?: 'rounded' | 'circular' | 'square';
+  size?: 'small' | 'medium' | 'large';
+  title?: string;
+  'aria-label'?: string;
+  [key: string]: any;
+}
+
+const {
+  class: className,
+  appearance = 'secondary',
+  disabled = false,
+  iconPosition = 'before',
+  shape = 'rounded',
+  size = 'medium',
+  ...rest
+} = Astro.props;
+
+const hasIcon = Astro.slots.has('icon') || Astro.slots.has('icon-regular');
+const hasDefaultSlot = Astro.slots.has('default');
+const isBundleIcon = Astro.slots.has('icon-regular') && Astro.slots.has('icon-filled');
+const isOnlyIcon = hasIcon && !hasDefaultSlot;
+const isBothIconAndText = hasIcon && hasDefaultSlot;
+const isSmall = size === 'small';
+const isLargeOrMedium = size === 'large' || size === 'medium';
+
+const rootClass = clsx(
+  'fluent-button',
+  `fluent-button--appearance-${appearance}`,
+  `fluent-button--shape-${shape}`,
+  `fluent-button--size-${size}`,
+  {
+    'fluent-button--disabled': disabled,
+    'fluent-button--icon': hasIcon,
+    'fluent-button--only-icon': isOnlyIcon,
+  },
+  className,
+);
+
+const iconClass = (type?: string) => clsx(
+  'fluent-button__icon',
+  type && `fluent-button__icon--${type}`,
+  {
+    'mr-4px': isBothIconAndText && iconPosition === 'before' && isSmall,
+    'mr-6px': isBothIconAndText && iconPosition === 'before' && isLargeOrMedium,
+    'ml-4px': isBothIconAndText && iconPosition === 'after' && isSmall,
+    'ml-6px': isBothIconAndText && iconPosition === 'after' && isLargeOrMedium,
+  },
+);
+---
+
+<button class={rootClass} disabled={disabled} {...rest}>
+  {iconPosition === 'before' && hasIcon && (
+    isBundleIcon ? (
+      <Fragment>
+        <span class={iconClass('regular')}><slot name="icon-regular" /></span>
+        <span class={iconClass('filled')}><slot name="icon-filled" /></span>
+      </Fragment>
+    ) : (
+      <span class={iconClass()}><slot name="icon" /></span>
+    )
+  )}
+  <slot />
+  {iconPosition === 'after' && hasIcon && (
+    isBundleIcon ? (
+      <Fragment>
+        <span class={iconClass('regular')}><slot name="icon-regular" /></span>
+        <span class={iconClass('filled')}><slot name="icon-filled" /></span>
+      </Fragment>
+    ) : (
+      <span class={iconClass()}><slot name="icon" /></span>
+    )
+  )}
+</button>

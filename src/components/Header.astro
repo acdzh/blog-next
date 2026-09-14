@@ -1,0 +1,265 @@
+---
+import Button from './fluent/Button.astro';
+import { BLOG_TITLE } from '@constants/blog';
+
+interface Props {
+  title?: string;
+  isTocButtonShow?: boolean;
+}
+
+const { title, isTocButtonShow = false } = Astro.props;
+const displayTitle = title || BLOG_TITLE;
+---
+
+<header
+  data-header
+  class="sticky top-0 mx-L <sm:mx-S z-100 glass bg-NeutralBackground1/80 rounded-b-Medium transition-shadow"
+>
+  <div class="flex justify-between h-54 max-w-screen-xl mx-auto px-S sm:px-L">
+    {/* Desktop nav links */}
+    <div class="<sm:hidden flex flex-row justify-center items-center">
+      <a href="/">
+        <Button appearance="subtle" size="large">
+          <span slot="icon-regular" class="i-fluent:home-24-regular" />
+          <span slot="icon-filled" class="i-fluent:home-24-filled" />
+          首页
+        </Button>
+      </a>
+      <Button appearance="subtle" size="large" disabled>
+        <span slot="icon-regular" class="i-fluent:bookmark-multiple-24-regular" />
+        <span slot="icon-filled" class="i-fluent:bookmark-multiple-24-filled" />
+        系列
+      </Button>
+      <Button appearance="subtle" size="large" disabled>
+        <span slot="icon-regular" class="i-fluent:tag-multiple-24-regular" />
+        <span slot="icon-filled" class="i-fluent:tag-multiple-24-filled" />
+        标签
+      </Button>
+      <a href="/post/about">
+        <Button appearance="subtle" size="large">
+          <span slot="icon-regular" class="i-fluent:person-24-regular" />
+          <span slot="icon-filled" class="i-fluent:person-24-filled" />
+          关于
+        </Button>
+      </a>
+      <a href="/rss.xml">
+        <Button appearance="subtle" size="large">
+          <span slot="icon-regular" class="i-fluent:rss-24-regular" />
+          <span slot="icon-filled" class="i-fluent:rss-24-filled" />
+          RSS
+        </Button>
+      </a>
+    </div>
+
+    {/* Mobile: hamburger + title */}
+    <div class="sm:hidden mr-12 flex flex-row justify-center items-center overflow-hidden">
+      <Button
+        data-mobile-toggle
+        class="mr-S"
+        aria-label="打开关闭菜单"
+        title="打开关闭菜单"
+        appearance="subtle"
+        size="large"
+      >
+        <span slot="icon-regular" class="i-fluent:navigation-24-regular" />
+        <span slot="icon-filled" class="i-fluent:navigation-24-filled" />
+      </Button>
+      <div class="leading-54 text-Base-500 truncate">{displayTitle}</div>
+    </div>
+
+    {/* Right buttons */}
+    <div class="relative flex flex-row justify-center items-center">
+      <Button
+        data-scroll-top
+        title="回到顶部"
+        aria-label="回到顶部"
+        appearance="subtle"
+        size="large"
+        class="mr-S hidden"
+      >
+        <span slot="icon-regular" class="i-fluent:arrow-circle-up-24-regular" />
+        <span slot="icon-filled" class="i-fluent:arrow-circle-up-24-filled" />
+      </Button>
+      {isTocButtonShow && (
+        <Button
+          data-toc-toggle
+          title="显示或隐藏目录"
+          aria-label="显示或隐藏目录"
+          appearance="subtle"
+          size="large"
+          class="lg:hidden! mr-S"
+        >
+          <span slot="icon-regular" class="i-fluent:text-bullet-list-24-regular" />
+          <span slot="icon-filled" class="i-fluent:text-bullet-list-24-filled" />
+        </Button>
+      )}
+      <Button
+        data-theme-toggle
+        title="切换主题"
+        aria-label="切换主题"
+        appearance="subtle"
+        size="large"
+      >
+        <span slot="icon-regular" data-theme-icon-sun class="i-fluent:weather-sunny-24-regular" style="display:none" />
+        <span slot="icon-filled" data-theme-icon-sun-filled class="i-fluent:weather-sunny-24-filled" style="display:none" />
+      </Button>
+    </div>
+  </div>
+
+  {/* Mobile nav (hidden by default) */}
+  <nav data-mobile-nav class="sm:hidden hidden">
+    <div class="w-full max-w-screen-xl mx-auto px-loose">
+      <div class="mb-XXS">
+        <a href="/">
+          <Button appearance="transparent" size="large">
+            <span slot="icon-regular" class="i-fluent:home-24-regular" />
+            <span slot="icon-filled" class="i-fluent:home-24-filled" />
+            {BLOG_TITLE}
+          </Button>
+        </a>
+      </div>
+      <div class="mb-XXS">
+        <Button appearance="transparent" size="large" disabled>
+          <span slot="icon-regular" class="i-fluent:bookmark-multiple-24-regular" />
+          <span slot="icon-filled" class="i-fluent:bookmark-multiple-24-filled" />
+          系列
+        </Button>
+      </div>
+      <div class="mb-XXS">
+        <Button appearance="transparent" size="large" disabled>
+          <span slot="icon-regular" class="i-fluent:tag-multiple-24-regular" />
+          <span slot="icon-filled" class="i-fluent:tag-multiple-24-filled" />
+          标签
+        </Button>
+      </div>
+      <div class="mb-XXS">
+        <a href="/post/about">
+          <Button appearance="transparent" size="large">
+            <span slot="icon-regular" class="i-fluent:person-24-regular" />
+            <span slot="icon-filled" class="i-fluent:person-24-filled" />
+            关于
+          </Button>
+        </a>
+      </div>
+      <div class="mb-XXS">
+        <a href="/rss.xml">
+          <Button appearance="transparent" size="large">
+            <span slot="icon-regular" class="i-fluent:rss-24-regular" />
+            <span slot="icon-filled" class="i-fluent:rss-24-filled" />
+            RSS
+          </Button>
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script is:inline>
+  window.__setTheme = function(theme, from) {
+    if (!['light', 'dark', 'auto'].includes(theme)) return;
+    if (theme !== window.__userSettingTheme) {
+      window.__userSettingTheme = theme;
+      window.localStorage.setItem('theme', theme);
+    }
+    var calcTheme = theme === 'auto' ? window.__systemPrefersTheme : theme;
+    if (calcTheme !== window.__currentTheme) {
+      window.__currentTheme = calcTheme;
+      window.dispatchEvent(new Event('__theme_changed'));
+      var doc = document.documentElement;
+      if (calcTheme === 'dark') { doc.classList.add('dark'); doc.classList.remove('light'); }
+      else { doc.classList.remove('dark'); doc.classList.add('light'); }
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', window.getComputedStyle(document.body).backgroundColor);
+    }
+    if (from === 'self' || from === 'child' || !from) {
+      if (window.self !== window.parent) {
+        try { if (window.parent.location.origin === window.location.origin) window.parent.__setTheme(theme, 'child'); } catch(e) {}
+      }
+    }
+    if (from === 'self' || from === 'parent' || !from) {
+      document.querySelectorAll('iframe').forEach(function(iframe) {
+        try { if (iframe.contentWindow && iframe.contentWindow.location.origin === window.location.origin) iframe.contentWindow.__setTheme(theme, 'parent'); } catch(e) {}
+      });
+    }
+  };
+</script>
+
+<script>
+  const header = document.querySelector('[data-header]');
+  const mobileToggle = document.querySelector('[data-mobile-toggle]');
+  const mobileNav = document.querySelector('[data-mobile-nav]');
+  const scrollTopBtn = document.querySelector('[data-scroll-top]');
+  const tocToggle = document.querySelector('[data-toc-toggle]');
+  const themeToggle = document.querySelector('[data-theme-toggle]');
+
+  // Theme icon management
+  function updateThemeIcons() {
+    const isDark = (window as any).__currentTheme === 'dark';
+    const btn = themeToggle;
+    if (!btn) return;
+    const iconRegular = btn.querySelector('.fluent-button__icon--regular');
+    const iconFilled = btn.querySelector('.fluent-button__icon--filled');
+    if (iconRegular) {
+      const span = iconRegular.querySelector('span');
+      if (span) {
+        span.className = isDark ? 'i-fluent:weather-sunny-24-regular' : 'i-fluent:weather-moon-24-regular';
+        span.style.display = '';
+      }
+    }
+    if (iconFilled) {
+      const span = iconFilled.querySelector('span');
+      if (span) {
+        span.className = isDark ? 'i-fluent:weather-sunny-24-filled' : 'i-fluent:weather-moon-24-filled';
+        span.style.display = '';
+      }
+    }
+  }
+
+  // Initial icon setup
+  updateThemeIcons();
+  window.addEventListener('__theme_changed', updateThemeIcons);
+
+  // Scroll shadow and scroll-to-top visibility
+  let isNavOpen = false;
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y > 10 || isNavOpen) {
+      header?.classList.add('shadow-Normal-4');
+    } else {
+      header?.classList.remove('shadow-Normal-4');
+    }
+    if (scrollTopBtn) {
+      if (y >= 1000) {
+        scrollTopBtn.classList.remove('hidden');
+      } else {
+        scrollTopBtn.classList.add('hidden');
+      }
+    }
+  });
+
+  // Mobile nav toggle
+  mobileToggle?.addEventListener('click', () => {
+    isNavOpen = !isNavOpen;
+    mobileNav?.classList.toggle('hidden');
+    if (isNavOpen) {
+      header?.classList.add('shadow-Normal-4');
+    } else if (window.scrollY <= 10) {
+      header?.classList.remove('shadow-Normal-4');
+    }
+  });
+
+  // Scroll to top
+  scrollTopBtn?.addEventListener('click', () => {
+    window.scroll({ top: 0, behavior: 'smooth' });
+  });
+
+  // TOC toggle
+  tocToggle?.addEventListener('click', () => {
+    window.dispatchEvent(new Event('toggle-toc'));
+  });
+
+  // Theme toggle
+  themeToggle?.addEventListener('click', () => {
+    (window as any).__setTheme?.((window as any).__currentTheme === 'dark' ? 'light' : 'dark');
+  });
+</script>

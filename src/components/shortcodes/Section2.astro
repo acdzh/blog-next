@@ -1,0 +1,40 @@
+---
+interface Props {
+  onLoad?: string;
+  onEnter?: string;
+  [key: string]: any;
+}
+
+const { onLoad, onEnter, ...rest } = Astro.props;
+const id = `section2-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<section id={id} data-on-load={onLoad} data-on-enter={onEnter} {...rest}>
+  <slot />
+</section>
+
+<script>
+  document.querySelectorAll('section[data-on-load], section[data-on-enter]').forEach((el) => {
+    const onLoad = el.getAttribute('data-on-load');
+    const onEnter = el.getAttribute('data-on-enter');
+
+    if (onLoad) {
+      try { new Function(onLoad)(); } catch (e) { console.error('Section2 onLoad error:', e); }
+    }
+
+    if (onEnter) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              try { new Function(onEnter)(); } catch (e) { console.error('Section2 onEnter error:', e); }
+              observer.disconnect();
+            }
+          }
+        },
+        { rootMargin: '400px' },
+      );
+      observer.observe(el);
+    }
+  });
+</script>

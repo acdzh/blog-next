@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Main from '../../components/Main.astro';
+import Footer from '../../components/Footer.astro';
+import Pagination from '../../components/fluent/Pagination.astro';
+import PostList from '../../components/PostList.astro';
+import { getListPosts, getPostsGroupedByPage } from '@libs/posts';
+
+export async function getStaticPaths() {
+  const allPosts = await getListPosts();
+  const pages = getPostsGroupedByPage(allPosts);
+  return pages
+    .map((pagePosts, index) => ({
+      params: { pageIndex: String(index + 1) },
+      props: { pagePosts, totalPages: pages.length },
+    }))
+    .filter((p) => p.params.pageIndex !== '1');
+}
+
+const { pageIndex } = Astro.params;
+const currentPage = Number(pageIndex);
+const { pagePosts, totalPages } = Astro.props;
+const metas = pagePosts.map((post) => post.meta);
+---
+
+<BaseLayout>
+  <Header isTocButtonShow={false} />
+  <Main>
+    <div>
+      <PostList metas={metas} />
+      <Pagination current={currentPage} total={totalPages} />
+    </div>
+  </Main>
+  <Footer />
+</BaseLayout>

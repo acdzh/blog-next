@@ -1,0 +1,20 @@
+---
+import './responsive-iframe.css';
+
+interface Props {
+  src: string;
+  width?: number;
+  height?: number;
+  [key: string]: any;
+}
+
+const { src, width = 16, height = 9, ...rest } = Astro.props;
+const paddingTop = `${(100 * height) / width}%`;
+---
+
+<figure class="responsive-iframe-container" style={`padding-top: ${paddingTop}`}>
+  <iframe src={src} loading="lazy" allowfullscreen {...rest}></iframe>
+  <figcaption>
+    <a href={src} target="_blank" rel="noreferrer">{src}</a>
+  </figcaption>
+</figure>

@@ -1,0 +1,53 @@
+---
+import './responsive-iframe.css';
+
+interface Props {
+  id?: string;
+  gui?: boolean;
+  t?: number;
+  paused?: boolean;
+  muted?: boolean;
+  width?: number;
+  height?: number;
+  src?: string;
+}
+
+const {
+  id = '',
+  gui = true,
+  t = 0,
+  paused = true,
+  muted = true,
+  width = 16,
+  height = 9,
+  src,
+} = Astro.props;
+
+const paddingTop = `${(100 * height) / width}%`;
+const externalSrc = `https://www.shadertoy.com/embed/${id}?gui=${gui}&t=${t}&paused=${paused}&muted=${muted}`;
+const localSrc = `/embed/shadertoy.html?gui=${gui}&t=${t}&paused=${paused}&muted=${muted}`;
+const iframeSrc = src ? localSrc : externalSrc;
+const dataShaderCode = src || undefined;
+---
+
+<p class="responsive-iframe-container" style={`padding-top: ${paddingTop}`}>
+  <iframe
+    allowfullscreen
+    loading="lazy"
+    title="shadertoy"
+    src={iframeSrc}
+    data-shader-code={dataShaderCode}
+  ></iframe>
+</p>
+
+{src && (
+  <script>
+    document.querySelectorAll('iframe[data-shader-code]').forEach((iframe) => {
+      const code = iframe.getAttribute('data-shader-code');
+      if (!code) return;
+      iframe.addEventListener('load', () => {
+        (iframe as HTMLIFrameElement).contentWindow?.postMessage({ type: 'set_code', code }, '*');
+      });
+    });
+  </script>
+)}
