@@ -34,11 +34,8 @@ const canonicalURL = new URL(Astro.url.pathname, BLOG_BASE_URL).href;
     <title>{title}</title>
     <link href="https://fontsapi.zeoseven.com/442/main/result.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
     <noscript><link rel="stylesheet" href="https://fontsapi.zeoseven.com/442/main/result.css" /></noscript>
-    <link
-      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-      type="text/css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" /></noscript>
     <slot name="head" />
     <script is:inline>
       (function () {
