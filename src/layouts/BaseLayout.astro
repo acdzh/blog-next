@@ -32,11 +32,8 @@ const canonicalURL = new URL(Astro.url.pathname, BLOG_BASE_URL).href;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <title>{title}</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/@fontsource-variable/maple-mono/index.min.css"
-      type="text/css"
-      rel="stylesheet"
-    />
+    <link href="https://fontsapi.zeoseven.com/442/main/result.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
+    <noscript><link rel="stylesheet" href="https://fontsapi.zeoseven.com/442/main/result.css" /></noscript>
     <link
       href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
       type="text/css"

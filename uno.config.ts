@@ -43,7 +43,7 @@ export default {
     fontFamily: {
       sans: `"Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif`,
       serif: `"Georgia", "serif"`,
-      mono: `"Maple Mono Variable", "Maple Mono", Monaco, Menlo, Consolas, "Droid Sans Mono", "Courier New", monospace`,
+      mono: `"Maple Mono NF CN", Monaco, Menlo, Consolas, "Droid Sans Mono", "Courier New", monospace`,
     },
     borderWidth: {
       ...normalSpacingMap,
